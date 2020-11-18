@@ -3,12 +3,15 @@ const app = express();
 const mongoose = require('mongoose');
 const Port = 5000;
 const cors = require('cors');
+const bodyParser = require("body-parser")
 
 require('dotenv').config();
 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(cors());
+
 mongoose.connect(process.env.URL,{useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set('useFindAndModify', false);
 mongoose.connection.on('connected',() =>{
@@ -19,11 +22,13 @@ mongoose.connection.on('error',(err) =>{
     console.log("error", err);
 })
 
-
-require('./models/product');
+app.use(bodyParser.json())
 app.use(express.json());
-app.use(require('./routes/product'));
+require('./models/product');
+require('./models/user');
 
+app.use(require('./routes/product'));
+app.use(require('./routes/user'));
 
 
 app.listen(Port, () => {
