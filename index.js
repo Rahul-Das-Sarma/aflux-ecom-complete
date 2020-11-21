@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const Port = process.env.PORT || 5000;
 const cors = require('cors');
 const bodyParser = require("body-parser")
 const {MONGOURL} = require('./config/keys')
@@ -38,7 +37,7 @@ if(process.env.NODE_ENV=="production"){
     res.sendFile(path.resolve(__dirname,'client', 'build', 'index.html'))
   })
 }
-
+const Port = process.env.PORT || 5000;
 app.listen(Port, () => {
   console.log('server is running on port 5000 . . .');
 })
