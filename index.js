@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require("body-parser")
 const {MONGOURL} = require('./config/keys')
 const path = require('path');
+const Port = process.env.PORT || 5000;
 
 require('dotenv').config();
 
@@ -38,7 +39,7 @@ if(process.env.NODE_ENV=="production"){
     res.sendFile(path.resolve(__dirname,'client', 'build', 'index.html'))
   })
 }
-const Port = process.env.PORT || 5000;
+
 app.listen(Port, () => {
   console.log('server is running on port 5000 . . .');
 })
